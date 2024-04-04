@@ -11,7 +11,7 @@ const Routes = () => {
             errorElement: <DetailErrorPage />,
         },
         {
-            path: 'repository/:repositoryId',
+            path: 'repository/:owner/:repo',
             element: <DetailPage />,
         },
     ]);
