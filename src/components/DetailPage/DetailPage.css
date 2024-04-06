@@ -1,0 +1,85 @@
+.detailPage_mainCard_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+}
+
+.detailPage_details_wrapper {
+    padding: 3rem 1rem 1rem;
+}
+.detailPage_owner_avatar_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative !important;
+    top: 3rem;
+}
+
+.detailPage_owner_avatar{
+    width: 5rem !important;
+    height: 5rem !important;
+
+}
+
+.detailPage_contributors_wrapper {
+    width: 80%;
+    display: flex;
+    gap: 0.2rem;
+    flex-wrap: wrap;
+    margin: auto auto 1.5rem;
+}
+
+.detailPage_contributors_wrapper > *  {
+    flex: 1 1 ;
+    display: flex;
+    justify-content: center;
+}
+
+.usedLanguages {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem
+}
+
+.usedLanguages_title {
+    margin: 0;
+    width: 80%;
+}
+
+.usedLanguages_progress_container {
+    border-radius: 0.3rem;
+    display: inline-flex;
+    margin: auto;
+    width: 80%;
+    height: 0.6rem;
+    overflow: hidden;
+}
+
+.usedLanguages_names_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    width: 80%
+}
+
+.usedLanguages_names_item {
+    flex: 1 1 33%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0.4rem;
+
+}
+
+.usedLanguages_name_marker {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+}
