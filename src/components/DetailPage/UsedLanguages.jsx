@@ -27,7 +27,7 @@ function UsedLanguages({ languages }) {
                       }),
             };
         }
-        console.log(tempLanguages);
+
         setLanguagesPrct((curState) => {
             return { ...curState, isLoading: false, data: { ...tempLanguages } };
         });

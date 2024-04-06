@@ -157,14 +157,6 @@ function DetailPage() {
                 )}
                 {!additionalRepoContent.isLoading ? (
                     <>
-                        {/*{Object.keys(additionalRepoContent.languages.data).map((language) => {*/}
-                        {/*    return (*/}
-                        {/*        <div key={language}>*/}
-                        {/*            {language}: {additionalRepoContent.languages.data[language]}*/}
-                        {/*        </div>*/}
-                        {/*    );*/}
-                        {/*})}*/}
-
                         <UsedLanguages languages={additionalRepoContent.languages.data} />
                         <div className={'detailPage_contributors_wrapper'}>
                             {additionalRepoContent.contributors.data.map((contributor) => {
