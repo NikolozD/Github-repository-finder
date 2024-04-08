@@ -83,7 +83,7 @@ function UsedLanguages({ languages }) {
 
 export default UsedLanguages;
 
-const colors = {
+export const colors = {
     JavaScript: '#FF6347', // Tomato
     Python: '#4682B4', // Steel Blue
     Java: '#32CD32', // Lime Green

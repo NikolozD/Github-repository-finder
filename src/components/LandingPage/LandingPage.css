@@ -1,0 +1,71 @@
+.landing_page_searchField {
+    width: 100%
+}
+
+.landing_page_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.landing_page_searchField_wrapper {
+    width: 80%;
+    margin: 2rem  auto;
+}
+
+.landing_page_viewToggleGroup {
+    position: absolute;
+}
+
+.landing_page_repositoryList_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    width: 80%;
+}
+
+.landing_page_repositoryList_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1 1 24%;
+    height: 15rem;
+    max-width: 15rem;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.landing_page_owner_avatar {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    width: 4rem !important;
+    height: 4rem !important;
+    outline: 1px solid lightgray ;
+}
+
+.landing_page_repoName {
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.landing_page_repoName span {
+    background-color: grey;
+    padding: 0.2rem 0.4rem ;
+    font-size: 0.8rem;
+    border-radius: 4px;
+
+}
+
+.landing_page_repoDescription {
+    max-height: 5.6rem;
+    overflow-y: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
