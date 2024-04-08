@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './DetailPage.css';
-import { Tooltip } from '@mui/material';
+import { Skeleton, Tooltip } from '@mui/material';
 
 function UsedLanguages({ languages }) {
     const [languagesPrct, setLanguagesPrct] = useState({ isLoading: true, data: {} });
@@ -9,21 +9,21 @@ function UsedLanguages({ languages }) {
         let languageSum = 0;
         let tempLanguages = {};
 
-        for (let language in languages) {
-            languageSum += languages[language];
+        for (let language in languages.data) {
+            languageSum += languages.data[language];
         }
-        for (let language in languages) {
+        for (let language in languages.data) {
             tempLanguages = {
                 ...tempLanguages,
-                ...((languages[language] / languageSum) * 100 > 1
-                    ? { [language]: ((languages[language] / languageSum) * 100).toFixed(1) }
+                ...((languages.data[language] / languageSum) * 100 > 1
+                    ? { [language]: ((languages.data[language] / languageSum) * 100).toFixed(1) }
                     : {
                           Other: tempLanguages.Other
                               ? (
                                     parseFloat(tempLanguages.Other) +
-                                    (languages[language] / languageSum) * 100
+                                    (languages.data[language] / languageSum) * 100
                                 ).toFixed(1)
-                              : ((languages[language] / languageSum) * 100).toFixed(1),
+                              : ((languages.data[language] / languageSum) * 100).toFixed(1),
                       }),
             };
         }
@@ -31,39 +31,54 @@ function UsedLanguages({ languages }) {
         setLanguagesPrct((curState) => {
             return { ...curState, isLoading: false, data: { ...tempLanguages } };
         });
-    }, [languages]);
+    }, [languages.data]);
 
-    if (!languagesPrct.isLoading) {
-        return (
-            <div className={'usedLanguages'}>
-                <h4 className={'usedLanguages_title'}>Languages</h4>
-                <span className={'usedLanguages_progress_container'}>
-                    {Object.keys(languagesPrct.data).map((language) => (
-                        <Tooltip title={language}>
+    return (
+        <div className={'usedLanguages'}>
+            <h4 className={'usedLanguages_title'}>Languages</h4>
+            {!languages.isLoading ? (
+                <>
+                    {' '}
+                    <span className={'usedLanguages_progress_container'}>
+                        {Object.keys(languagesPrct.data).map((language) => (
+                            <Tooltip key={language} title={language}>
+                                <span
+                                    className={'usedLanguages_item'}
+                                    style={{
+                                        flex: `1 1 ${languagesPrct.data[language] + '%'}`,
+                                        backgroundColor: colors[language] ?? '#197319',
+                                        outline: '2px solid #0000',
+                                    }}></span>
+                            </Tooltip>
+                        ))}
+                    </span>
+                    <div className={'usedLanguages_names_container'}>
+                        {Object.keys(languagesPrct.data).map((language) => (
                             <span
-                                className={'usedLanguages_item'}
-                                style={{
-                                    flex: `1 1 ${languagesPrct.data[language] + '%'}`,
-                                    backgroundColor: colors[language] ?? '#197319',
-                                    outline: '2px solid #0000',
-                                }}
-                                key={language}></span>
-                        </Tooltip>
-                    ))}
-                </span>
-                <div className={'usedLanguages_names_container'}>
-                    {Object.keys(languagesPrct.data).map((language) => (
-                        <span className={'usedLanguages_names_item'} key={language}>
-                            <span
-                                style={{ backgroundColor: colors[language] ?? '#197319' }}
-                                className={'usedLanguages_name_marker'}></span>
-                            {language + ' ' + languagesPrct.data[language] + '%'}
-                        </span>
-                    ))}
-                </div>
-            </div>
-        );
-    }
+                                className={'usedLanguages_names_item'}
+                                key={language + colors[language]}>
+                                <span
+                                    style={{ backgroundColor: colors[language] ?? '#197319' }}
+                                    className={'usedLanguages_name_marker'}></span>
+                                {language + ' ' + languagesPrct.data[language] + '%'}
+                            </span>
+                        ))}
+                    </div>
+                </>
+            ) : (
+                <>
+                    <Skeleton variant="text" width={'80%'} />
+                    <div className={'usedLanguages_names_container'}>
+                        <Skeleton variant="text" width={'20%'} />
+                        <Skeleton variant="text" width={'20%'} />
+                        <Skeleton variant="text" width={'20%'} />
+                        <Skeleton variant="text" width={'20%'} />
+                        <Skeleton variant="text" width={'20%'} />
+                    </div>
+                </>
+            )}
+        </div>
+    );
 }
 
 export default UsedLanguages;

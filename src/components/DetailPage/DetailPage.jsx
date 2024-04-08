@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Avatar, Paper, Tooltip } from '@mui/material';
+import { Avatar, Paper, Skeleton } from '@mui/material';
 import { ForkRight, Preview, StarBorder, SupervisorAccount, Visibility } from '@mui/icons-material';
 import './DetailPage.css';
 import UsedLanguages from './UsedLanguages';
+import Contributors from './Contributors';
 
 function DetailPage() {
     const { owner, repo } = useParams();
@@ -16,6 +17,7 @@ function DetailPage() {
         languages: { isLoading: true, data: {} },
         contributors: { isLoading: true, data: [] },
     });
+    const [showAllContributors, setShowAllContributors] = useState(false);
 
     useEffect(() => {
         const fetchData = () => {
@@ -82,9 +84,21 @@ function DetailPage() {
                     })
                     .catch((err) => console.log(err));
             };
-            const getContributors = () => {
+
+            getLanguages();
+        }
+    }, [secondaryApis]);
+
+    useEffect(() => {
+        if (Object.keys(secondaryApis).length) {
+            setAdditionalRepoContent((curState) => {
+                return { ...curState, contributors: { ...curState.contributors, isLoading: true } };
+            });
+            const getAllContributor = () => {
                 return instance
-                    .get(secondaryApis.contributors)
+                    .get(secondaryApis.contributors, {
+                        params: { per_page: showAllContributors ? 0 : 10 },
+                    })
                     .then((result) => {
                         if (result.status === 200) {
                             setAdditionalRepoContent((curState) => {
@@ -101,10 +115,9 @@ function DetailPage() {
                     })
                     .catch((err) => console.log(err));
             };
-            getLanguages();
-            getContributors();
+            getAllContributor();
         }
-    }, [secondaryApis]);
+    }, [showAllContributors, secondaryApis]);
 
     useEffect(() => {
         if (
@@ -132,54 +145,62 @@ function DetailPage() {
                             </a>
                         </div>
                         <Paper variant="outlined" className={'detailPage_details_wrapper'}>
-                            <p>Published at: {initialRepoContent.publishDate}</p>
-                            <p>Last Update: {initialRepoContent.updateDate}</p>
-                            <p>
+                            <span>
+                                <b>Published on:</b>
+                                {new Date(initialRepoContent.publishDate).toLocaleDateString()}
+                            </span>
+                            <span>
+                                <b>Last Update:</b>
+                                {new Date(initialRepoContent.updateDate).toLocaleDateString()}
+                            </span>
+                            <span style={{ display: 'flex' }}>
                                 <SupervisorAccount /> {initialRepoContent.subscribersCount}{' '}
                                 subscribers
-                            </p>
-                            <p>
+                            </span>
+                            <span>
                                 <Preview /> {initialRepoContent.visibility} visibility
-                            </p>
-                            <p>
+                            </span>
+                            <span>
                                 <Visibility /> {initialRepoContent.watchers} watching
-                            </p>
-                            <p>
+                            </span>
+                            <span>
                                 <StarBorder /> {initialRepoContent.stars} stars
-                            </p>
-                            <p>
+                            </span>
+                            <span>
                                 <ForkRight /> {initialRepoContent.forks} forks
-                            </p>
+                            </span>
                         </Paper>
                     </div>
                 ) : (
-                    <div>Loading</div>
-                )}
-                {!additionalRepoContent.isLoading ? (
-                    <>
-                        <UsedLanguages languages={additionalRepoContent.languages.data} />
-                        <div className={'detailPage_contributors_wrapper'}>
-                            {additionalRepoContent.contributors.data.map((contributor) => {
-                                return (
-                                    <a
-                                        key={contributor.id}
-                                        href={contributor.html_url}
-                                        target="_blank">
-                                        <Tooltip title={contributor.login}>
-                                            <Avatar src={contributor.avatar_url} />
-                                        </Tooltip>
-                                    </a>
-                                );
-                            })}
+                    <div>
+                        <div className={'detailPage_owner_avatar_container'}>
+                            <Skeleton className={'detailPage_owner_avatar'} variant="circular" />
+                            <Skeleton variant="text" width={50} />
                         </div>
-                    </>
-                ) : (
-                    'Loading'
+                        <Paper variant="outlined" className={'detailPage_details_wrapper'}>
+                            <Skeleton variant="text" width={'40%'} />
+                            <Skeleton variant="text" width={'40%'} />
+                            <Skeleton variant="text" width={'40%'} />
+                            <Skeleton variant="text" width={'40%'} />
+                            <Skeleton variant="text" width={'40%'} />
+                            <Skeleton variant="text" width={'40%'} />
+                            <Skeleton variant="text" width={'40%'} />
+                        </Paper>
+                    </div>
                 )}
+                <div>
+                    <UsedLanguages languages={additionalRepoContent.languages} />
+                    <Contributors
+                        setGetAllContributors={setShowAllContributors}
+                        getAllContributors={showAllContributors}
+                        contributors={additionalRepoContent.contributors}
+                    />
+                </div>
             </Paper>
         </div>
     );
 }
+
 export default DetailPage;
 
 const instance = axios.create({});

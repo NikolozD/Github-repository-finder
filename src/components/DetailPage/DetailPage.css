@@ -1,14 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
 .detailPage_mainCard_wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 50%;
-    margin: auto;
+    margin: auto auto 1rem ;
+    max-width: 40rem;
 }
 
 .detailPage_details_wrapper {
+    width: 100%;
     padding: 3rem 1rem 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
+
+.detailPage_details_wrapper > span {
+    display: flex;
+    gap: 0.4rem;
+}
+
 .detailPage_owner_avatar_container {
     display: flex;
     justify-content: center;
@@ -25,17 +41,25 @@
 }
 
 .detailPage_contributors_wrapper {
-    width: 80%;
+    width: 100%;
     display: flex;
-    gap: 0.2rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
-    margin: auto auto 1.5rem;
+
+}
+
+.detailPage_contributors_wrapper_skeleton {
+    width: 100%;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
 }
 
 .detailPage_contributors_wrapper > *  {
     flex: 1 1 ;
     display: flex;
     justify-content: center;
+    max-width: fit-content;
 }
 
 .usedLanguages {
@@ -72,6 +96,7 @@
 .usedLanguages_names_item {
     flex: 1 1 33%;
     display: flex;
+    max-width: 33%;
     justify-content: left;
     align-items: center;
     gap: 0.4rem;
@@ -82,4 +107,27 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
+}
+
+.contributors {
+    width: 80%;
+    margin: auto auto 3rem;
+
+}
+
+.toggle_contributors_view {
+    color: blue;
+    font-weight: 400;
+    text-decoration: underline;
+    text-align: right;
+    cursor: pointer;
+}
+
+@media (max-width: 450px) {
+    .detailPage_mainCard_wrapper {
+        width: 100%;
+        max-width: unset;
+        margin: 0
+
+    }
 }
