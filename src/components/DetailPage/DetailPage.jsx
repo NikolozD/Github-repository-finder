@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Avatar, Paper, Skeleton } from '@mui/material';
 import {
     ArrowBack,
@@ -14,6 +13,7 @@ import './DetailPage.css';
 import UsedLanguages from './UsedLanguages';
 import Contributors from './Contributors';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import { instance } from '../axiosInstance';
 
 function DetailPage() {
     const navigate = useNavigate();
@@ -32,9 +32,9 @@ function DetailPage() {
         const fetchData = () => {
             instance
                 .get(`https://api.github.com/repos/${owner}/${repo}`)
-                .then((result) => {
-                    if (result.status === 200) {
-                        const repo = result.data;
+                .then((response) => {
+                    if (response.status === 200) {
+                        const repo = response.data;
 
                         const repoContent = {
                             fullName: repo.full_name,
@@ -86,21 +86,30 @@ function DetailPage() {
             const getLanguages = () => {
                 return instance
                     .get(secondaryApis.languages)
-                    .then((result) => {
-                        if (result.status === 200) {
+                    .then((response) => {
+                        if (response.status === 200) {
                             setAdditionalRepoContent((curState) => {
                                 return {
                                     ...curState,
                                     languages: {
                                         ...curState.languages,
-                                        data: result.data,
+                                        data: response.data,
                                         isLoading: false,
                                     },
                                 };
                             });
                         }
                     })
-                    .catch((err) => console.log(err));
+                    .catch((err) =>
+                        setError((curState) => {
+                            return {
+                                ...curState,
+                                isError: true,
+                                statusCode: err.response.status,
+                                message: err.response.data.message,
+                            };
+                        })
+                    );
             };
 
             getLanguages();
@@ -117,22 +126,31 @@ function DetailPage() {
                     .get(secondaryApis.contributors, {
                         params: { per_page: showAllContributors ? 0 : 10 },
                     })
-                    .then((result) => {
-                        if (result.status === 200) {
+                    .then((response) => {
+                        if (response.status === 200) {
                             setAdditionalRepoContent((curState) => {
                                 return {
                                     ...curState,
                                     contributors: {
                                         ...curState.contributors,
-                                        data: result.data,
+                                        data: response.data,
                                         isLoading: false,
-                                        hasNextPages: !!result.headers.link,
+                                        hasNextPages: !!response.headers.link,
                                     },
                                 };
                             });
                         }
                     })
-                    .catch((err) => console.log(err));
+                    .catch((err) =>
+                        setError((curState) => {
+                            return {
+                                ...curState,
+                                isError: true,
+                                statusCode: err.response.status,
+                                message: err.response.data.message,
+                            };
+                        })
+                    );
             };
             getAllContributor();
         }
@@ -231,7 +249,3 @@ function DetailPage() {
 }
 
 export default DetailPage;
-
-const instance = axios.create({
-    headers: { Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}` },
-});

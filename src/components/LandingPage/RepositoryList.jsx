@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Avatar, Pagination, Skeleton } from '@mui/material';
 import { colors } from '../DetailPage/UsedLanguages';
 import { useNavigate } from 'react-router-dom';
+import { instance } from '../axiosInstance';
 
 const itemPerPage = 27;
 
@@ -21,12 +21,16 @@ function RepositoryList({ searchInput, isLayoutTabular }) {
     });
 
     useEffect(() => {
+        setPagination({ perPage: itemPerPage, totalPages: 0, curPage: 1 });
+    }, [searchInput]);
+
+    useEffect(() => {
         if (searchInput) {
             setRepositoryList((curState) => {
                 return { ...curState, isLoading: true };
             });
             const getRepositories = () => {
-                axios
+                instance
                     .get('https://api.github.com/search/repositories', {
                         params: {
                             q: searchInput,
