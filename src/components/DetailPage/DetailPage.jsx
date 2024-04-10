@@ -24,7 +24,7 @@ function DetailPage() {
     const [additionalRepoContent, setAdditionalRepoContent] = useState({
         isLoading: true,
         languages: { isLoading: true, data: {} },
-        contributors: { isLoading: true, data: [] },
+        contributors: { isLoading: true, data: [], hasNextPages: false },
     });
     const [showAllContributors, setShowAllContributors] = useState(false);
 
@@ -126,6 +126,7 @@ function DetailPage() {
                                         ...curState.contributors,
                                         data: result.data,
                                         isLoading: false,
+                                        hasNextPages: !!result.headers.link,
                                     },
                                 };
                             });

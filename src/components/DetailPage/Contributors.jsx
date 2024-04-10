@@ -17,19 +17,21 @@ function Contributors({ contributors, setGetAllContributors, getAllContributors 
                             );
                         })}
                     </div>
-                    {getAllContributors ? (
-                        <p
-                            className={'toggle_contributors_view'}
-                            onClick={() => setGetAllContributors(false)}>
-                            Hide
-                        </p>
-                    ) : (
-                        <p
-                            className={'toggle_contributors_view'}
-                            onClick={() => setGetAllContributors(true)}>
-                            Show all Contributors
-                        </p>
-                    )}
+                    {contributors.hasNextPages ? (
+                        getAllContributors ? (
+                            <p
+                                className={'toggle_contributors_view'}
+                                onClick={() => setGetAllContributors(false)}>
+                                Hide
+                            </p>
+                        ) : (
+                            <p
+                                className={'toggle_contributors_view'}
+                                onClick={() => setGetAllContributors(true)}>
+                                Show all Contributors
+                            </p>
+                        )
+                    ) : null}
                 </>
             ) : (
                 <>

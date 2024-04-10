@@ -49,8 +49,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     height: 6rem;
-    grid-template-columns: 10% 90% ;
-    grid-template-rows: 20% 80%;
+    padding: 0.2rem;
+    grid-column-gap: 0.1rem;
+    grid-template-columns: max-content auto ;
+    grid-template-rows: auto auto;
 }
 
 .landing_page_repositoryList_item_skeleton {
