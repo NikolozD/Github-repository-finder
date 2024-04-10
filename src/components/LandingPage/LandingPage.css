@@ -151,9 +151,9 @@
 }
 
 @media (max-width: 450px) {
-    .landing_page_repositoryList_item {
+    .landing_page_repositoryList_item ,.landing_page_repositoryList_item_skeleton {
         flex: 1 1 100%;
-        max-width: unset;
+        max-width: unset !important;
     }
 }
 
