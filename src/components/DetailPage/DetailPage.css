@@ -20,6 +20,18 @@
     gap: 0.5rem;
 }
 
+
+.detailPage_arrowHome {
+    position: absolute;
+    width: fit-content;
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+
 .detailPage_details_wrapper > span {
     display: flex;
     gap: 0.4rem;

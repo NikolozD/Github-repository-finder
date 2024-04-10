@@ -13,30 +13,78 @@
 .landing_page_searchField_wrapper {
     width: 80%;
     margin: 2rem  auto;
+    display: flex;
+    gap: 0.2rem;
 }
 
-.landing_page_viewToggleGroup {
-    position: absolute;
-}
+
 
 .landing_page_repositoryList_wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.2rem;
     width: 80%;
+    padding-bottom: 1rem;
 }
+
+
 
 .landing_page_repositoryList_item {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    flex: 1 1 24%;
+    flex: 1 1 25%;
     height: 15rem;
     max-width: 15rem;
     border: 1px solid lightgray;
     border-radius: 4px;
     padding: 0.5rem;
+}
+
+.landing_page_repositoryList_item.tabular {
+    display: grid;
+    flex: 1 1 100%;
+    max-width: unset;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 6rem;
+    grid-template-columns: 10% 90% ;
+    grid-template-rows: 20% 80%;
+}
+
+.landing_page_repositoryList_item_skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 25%;
+    height: 15rem !important;
+    max-width: 15rem !important;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 0.5rem;
+    transform: unset !important;
+
+}
+
+.landing_page_repositoryList_item_skeleton.tabular {
+    flex: 1 1 100% !important;
+    height: 6rem !important;
+    max-width: unset !important;
+}
+
+
+.landing_page_repositoryList_item:hover {
+    outline: skyblue 1px solid;
+
+}
+
+.landing_page_notFound {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    color: lightgray;
+    font-weight: 600;
 }
 
 .landing_page_owner_avatar {
@@ -46,11 +94,27 @@
     width: 4rem !important;
     height: 4rem !important;
     outline: 1px solid lightgray ;
+;
+}
+
+.landing_page_owner_avatar.tabular {
+    grid-row: 1 / 3
 }
 
 .landing_page_repoName {
+    text-align: center;
     margin-bottom: 1rem;
     font-weight: 500;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+
+}
+
+.landing_page_repoName.tabular {
+    grid-row: 1 /1;
+    margin: 0;
 }
 
 .landing_page_repoName span {
@@ -63,7 +127,32 @@
 
 .landing_page_repoDescription {
     max-height: 5.6rem;
-    overflow-y: hidden;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.landing_page_repoDescription.tabular {
+    grid-row: 2;
+    grid-column: 2;
+    text-align: center;
+
+}
+
+.landing_page_pagination_wrapper {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 450px) {
+    .landing_page_repositoryList_item {
+        flex: 1 1 100%;
+        max-width: unset;
+    }
 }
 
 * {

@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LandingPage from '../components/LandingPage/LandingPage';
 import DetailPage from '../components/DetailPage/DetailPage';
-import DetailErrorPage from '../components/DetailPage/DetailErrorPage';
+import ErrorPage from '../components/ErrorPage/ErrorPage';
 
 const Routes = () => {
     const router = createBrowserRouter([
         {
             path: '/',
             element: <LandingPage />,
-            errorElement: <DetailErrorPage />,
+            errorElement: <ErrorPage statusCode={404} message={'Page Not Found'} />,
         },
         {
             path: 'repository/:owner/:repo',
