@@ -181,7 +181,10 @@ function DetailPage() {
                                     className={'detailPage_owner_avatar'}
                                     src={initialRepoContent.owner.avatar}
                                 />
-                                <a href={initialRepoContent.repoUrl} target="_blank">
+                                <a
+                                    href={initialRepoContent.repoUrl}
+                                    target="_blank"
+                                    rel="noreferrer">
                                     {initialRepoContent.fullName}
                                 </a>
                             </div>

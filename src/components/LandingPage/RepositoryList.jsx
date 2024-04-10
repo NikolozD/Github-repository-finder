@@ -72,7 +72,7 @@ function RepositoryList({ searchInput, isLayoutTabular }) {
             });
             setPagination({ perPage: itemPerPage, totalPages: 0, curPage: 1 });
         }
-    }, [searchInput, pagination.curPage]);
+    }, [searchInput, pagination.curPage, pagination.perPage]);
 
     return (
         <div className={'landing_page_repositoryList_wrapper' + isLayoutTabular}>

@@ -9,7 +9,11 @@ function Contributors({ contributors, setGetAllContributors, getAllContributors 
                     <div className={'detailPage_contributors_wrapper'}>
                         {contributors.data.map((contributor) => {
                             return (
-                                <a key={contributor.id} href={contributor.html_url} target="_blank">
+                                <a
+                                    key={contributor.id}
+                                    href={contributor.html_url}
+                                    target="_blank"
+                                    rel="noreferrer">
                                     <Tooltip title={contributor.login}>
                                         <Avatar src={contributor.avatar_url} />
                                     </Tooltip>
