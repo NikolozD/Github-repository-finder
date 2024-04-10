@@ -232,4 +232,6 @@ function DetailPage() {
 
 export default DetailPage;
 
-const instance = axios.create({});
+const instance = axios.create({
+    headers: { Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}` },
+});
